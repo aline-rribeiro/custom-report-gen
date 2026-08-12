@@ -84,18 +84,30 @@ function LoginPanel({
   setCreds: (c: DbCredentials) => void;
   onDone: () => void;
 }) {
-  const set = (k: keyof DbCredentials) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const [error, setError] = useState("");
+  const set = (k: keyof DbCredentials) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError("");
     setCreds({ ...creds, [k]: e.target.value });
+  };
 
   return (
     <form
       className="panel mx-auto max-w-xl p-8"
       onSubmit={(e) => {
         e.preventDefault();
-        if (!creds.user.trim() || !creds.password || !creds.host.trim() || !creds.database.trim()) {
-          toast.error("Preencha usuário, senha, host e banco.");
+        const missing = [
+          !creds.user.trim() && "usuário",
+          !creds.password && "senha",
+          !creds.host.trim() && "host",
+          !creds.database.trim() && "banco",
+        ].filter(Boolean);
+        if (missing.length) {
+          const msg = `Preencha: ${missing.join(", ")}.`;
+          setError(msg);
+          toast.error(msg);
           return;
         }
+        setError("");
         onDone();
       }}
     >
@@ -140,6 +152,8 @@ function LoginPanel({
         Nada é enviado para servidores: as credenciais ficam apenas nesta aba do navegador e são
         usadas só para montar o script que você baixa.
       </p>
+
+      {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
 
       <Button type="submit" className="mt-6 w-full" size="lg">
         Entrar
