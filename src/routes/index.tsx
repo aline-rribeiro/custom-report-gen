@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Database, Download, Copy, LogOut, ShieldCheck, FileSpreadsheet } from "lucide-react";
+import { Database, Download, LogOut, ShieldCheck, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -249,16 +249,6 @@ function FiltersPanel({ creds, onLogout }: { creds: DbCredentials; onLogout: () 
             }}
           >
             <Download className="size-4" /> Emitir relatório
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={invalid}
-            onClick={async () => {
-              await navigator.clipboard.writeText(script);
-              toast.success("Script copiado.");
-            }}
-          >
-            <Copy className="size-4" /> Copiar script
           </Button>
         </div>
       </section>
