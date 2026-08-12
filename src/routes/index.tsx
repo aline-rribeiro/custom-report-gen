@@ -153,6 +153,8 @@ function LoginPanel({
         usadas só para montar o script que você baixa.
       </p>
 
+      {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
+
       <Button type="submit" className="mt-6 w-full" size="lg">
         Entrar
       </Button>
