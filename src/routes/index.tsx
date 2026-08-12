@@ -179,7 +179,7 @@ function FiltersPanel({ creds, onLogout }: { creds: DbCredentials; onLogout: () 
   }, [filters, invalid]);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
+    <div className="mx-auto max-w-xl">
       <section className="panel h-fit p-6">
         <div className="mb-5 flex items-center justify-between gap-3">
           <div>
@@ -231,10 +231,10 @@ function FiltersPanel({ creds, onLogout }: { creds: DbCredentials; onLogout: () 
               a.download = "relatorio_4_marcacoes.py";
               a.click();
               URL.revokeObjectURL(url);
-              toast.success("Script gerado. Rode com: python relatorio_4_marcacoes.py");
+              toast.success("Relatório emitido. Rode com: python relatorio_4_marcacoes.py");
             }}
           >
-            <Download className="size-4" /> Baixar script
+            <Download className="size-4" /> Emitir relatório
           </Button>
           <Button
             variant="secondary"
@@ -248,19 +248,10 @@ function FiltersPanel({ creds, onLogout }: { creds: DbCredentials; onLogout: () 
           </Button>
         </div>
       </section>
-
-      <section className="panel overflow-hidden">
-        <div className="flex items-center justify-between border-b border-border px-5 py-3">
-          <h2 className="text-sm font-semibold">Pré-visualização</h2>
-          <span className="font-mono text-xs text-muted-foreground">relatorio_4_marcacoes.py</span>
-        </div>
-        <pre className="max-h-[70vh] overflow-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
-          {script || "Ajuste os filtros para gerar o script."}
-        </pre>
-      </section>
     </div>
   );
 }
+
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
